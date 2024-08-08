@@ -4,12 +4,7 @@ class Solution {
 public:
     bool isValid(string s) {
 
-        if(s.length() == 1){
-            return false ;
-        }
-
         stack<char> st;
-        st.push('a');
 
         for(int i=0; i<s.length() ; i++){
 
@@ -31,11 +26,6 @@ public:
             }
 
         }
-
-        if(st.top() == 'a'){
-            st.pop();
-        }
-
 
         if(st.empty()){
             return true ;
