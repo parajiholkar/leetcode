@@ -2,11 +2,10 @@ class Solution {
     public int[] searchRange(int[] nums, int target) {
         int[] ans = {-1, -1};
 
-        int first = binarySearch(nums, target, true);
-        int second = binarySearch(nums, target, false);
-
-        ans[0] = first;
-        ans[1] = second;
+        ans[0] = binarySearch(nums, target, true);
+        if(ans[0] != -1){
+            ans[1] = binarySearch(nums, target, false);
+        }
 
         return ans;
     }
