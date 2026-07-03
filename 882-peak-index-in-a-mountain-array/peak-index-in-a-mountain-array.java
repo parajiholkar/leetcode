@@ -1,6 +1,10 @@
 class Solution {
     public int peakIndexInMountainArray(int[] arr) {
 
+        if(arr.length == 0 || arr.length == 1){
+            return 0;
+        }
+
         int start = 0, end = arr.length-1;
 
         while(start<=end){
