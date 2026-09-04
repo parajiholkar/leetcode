@@ -18,13 +18,16 @@ class Solution {
         ListNode fastnode = dummy;
         ListNode current = dummy;
 
-        for(int i=0; i<=n; i++){
-            fastnode = fastnode.next;
-        }
+        // for(int i=0; i<=n; i++){
+        //     fastnode = fastnode.next;
+        // }
 
         while(fastnode != null){
-            current = current.next;
+            if(n<0){
+                current = current.next;
+            }
             fastnode = fastnode.next;
+            n--;
         }
 
         current.next = current.next.next;
