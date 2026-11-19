@@ -2,12 +2,12 @@ class Solution {
     public List<Integer> eventualSafeNodes(int[][] graph) {
 
         boolean[] vis = new boolean[graph.length];
-        ArrayList<Integer> safeNodes = new ArrayList<>();
+        boolean[] safeNodes = new boolean[graph.length];
 
         for(int i=0; i<graph.length; i++){
             if(graph[i].length == 0){
                 vis[i] = true;
-                safeNodes.add(i);
+                safeNodes[i] = true;
             }
         }
 
@@ -17,19 +17,25 @@ class Solution {
             }
         }
 
-        Collections.sort(safeNodes);
+        ArrayList<Integer> ans = new ArrayList<>();
 
-        return safeNodes;
+        for(int i=0; i<graph.length; i++){
+            if(safeNodes[i]){
+                ans.add(i);
+            }
+        }
+
+        return ans;
     }
 
-    public boolean dfs(int[][] graph, boolean[] vis, int curr, ArrayList<Integer> safeNodes){
+    public boolean dfs(int[][] graph, boolean[] vis, int curr, boolean[] safeNodes){
         vis[curr] = true;
 
         int[] adjNode = graph[curr];
 
         for(int i=0; i<adjNode.length; i++){
 
-            if(safeNodes.contains(adjNode[i])) continue;
+            if(safeNodes[adjNode[i]]) continue;
 
             if(vis[adjNode[i]]) return false;
 
@@ -38,7 +44,7 @@ class Solution {
             if(!isAdjSafeNode) return false;
         }
 
-        safeNodes.add(curr);
+        safeNodes[curr] = true;
 
         return true;
     }
