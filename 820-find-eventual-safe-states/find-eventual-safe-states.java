@@ -44,7 +44,7 @@ class Solution {
         for(int nob: adjNode){
 
             if(!dfs(graph, vis, nob, safeNodes, stack)){
-                stack[nob] = false;
+                stack[curr] = false;
                 return false;
             }
 
