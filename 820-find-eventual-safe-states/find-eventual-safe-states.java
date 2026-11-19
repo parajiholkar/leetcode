@@ -3,6 +3,7 @@ class Solution {
 
         boolean[] vis = new boolean[graph.length];
         boolean[] safeNodes = new boolean[graph.length];
+        boolean[] stack = new boolean[graph.length];
 
         for(int i=0; i<graph.length; i++){
             if(graph[i].length == 0){
@@ -13,7 +14,7 @@ class Solution {
 
         for(int i=0; i<graph.length; i++){
             if(!vis[i]){
-                dfs(graph, vis, i, safeNodes);
+                dfs(graph, vis, i, safeNodes, stack);
             }
         }
 
@@ -28,23 +29,29 @@ class Solution {
         return ans;
     }
 
-    public boolean dfs(int[][] graph, boolean[] vis, int curr, boolean[] safeNodes){
+    public boolean dfs(int[][] graph, boolean[] vis, int curr, boolean[] safeNodes, boolean[] stack){
+
+        if(stack[curr]) return false;
+
+        if(vis[curr]) return safeNodes[curr];
+
         vis[curr] = true;
+        stack[curr] = true;
+
 
         int[] adjNode = graph[curr];
 
-        for(int i=0; i<adjNode.length; i++){
+        for(int nob: adjNode){
 
-            if(safeNodes[adjNode[i]]) continue;
+            if(!dfs(graph, vis, nob, safeNodes, stack)){
+                stack[nob] = false;
+                return false;
+            }
 
-            if(vis[adjNode[i]]) return false;
-
-            boolean isAdjSafeNode = dfs(graph, vis, adjNode[i], safeNodes);
-
-            if(!isAdjSafeNode) return false;
         }
 
         safeNodes[curr] = true;
+        stack[curr] = false;
 
         return true;
     }
